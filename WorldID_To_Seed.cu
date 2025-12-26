@@ -190,7 +190,7 @@ CheckKernel(long long baseSeedOffset, int32_t targetWorldId, int32_t* dFoundSeed
 
     if (!isWind400) { // 799 / 800
         // Skip 12 calls
-        // [16] and [37] are good from sparse_mix        
+        // [16] and [37] are good from RandomInitSparse        
         result = SubAndNorm(seedArray[16], seedArray[37]);
     } 
     else { // 1 / 800
@@ -273,3 +273,4 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
