@@ -1,3 +1,4 @@
+// This is for when (316080314LL * (long long)worldId + 75192552LL) % 2147483647LL does NOT result in the correct seed (OR you want to search for collisions)
 #include <cmath>
 #include <cstdint>
 #include <chrono>
@@ -273,4 +274,5 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
 
