@@ -1,4 +1,4 @@
-// This is for when (316080314LL * (long long)worldId + 75192552LL) % 2147483647LL does NOT result in the correct seed (OR you want to search for collisions)
+// This is for when (316080314LL * (int64_t)worldId + 75192552LL) % 2147483647LL does NOT result in the correct seed (OR you want to search for collisions)
 #include <cmath>
 #include <cstdint>
 #include <chrono>
@@ -171,8 +171,8 @@ __device__ __noinline__ int32_t GetWorldIDSlowPath(int32_t seed) {
 }
 
 __global__ void __launch_bounds__(THREADS_PER_BLOCK, 2)
-CheckKernel(long long baseSeedOffset, int32_t targetWorldId, int32_t* dFoundSeeds, int32_t* dFoundCount, long long maxSeedLimit) {
-    const long long idx = baseSeedOffset + (blockIdx.x * blockDim.x + threadIdx.x);
+CheckKernel(int64_t baseSeedOffset, int32_t targetWorldId, int32_t* dFoundSeeds, int32_t* dFoundCount, int64_t maxSeedLimit) {
+    const int64_t idx = baseSeedOffset + (blockIdx.x * blockDim.x + threadIdx.x);
     if (idx > maxSeedLimit) { // GE?
         return;
     }
@@ -226,8 +226,8 @@ int main(int argc, char **argv) {
     int32_t* hFoundSeeds = new int32_t[MAX_HITS_PER_BATCH];
     int32_t hFoundCount = 0;
 
-    constexpr long long totalSeeds = static_cast<long long>(INT_MAX_VAL) + 1; // 0 to INT_MAX
-    constexpr long long batchSize = (long long)BLOCKS_PER_GRID * THREADS_PER_BLOCK; 
+    constexpr int64_t totalSeeds = static_cast<int64_t>(INT_MAX_VAL) + 1; // 0 to INT_MAX
+    constexpr int64_t batchSize = (int64_t)BLOCKS_PER_GRID * THREADS_PER_BLOCK; 
 
     printf("Search Space: %lld seeds\n", totalSeeds);
     printf("Batch Size:   %lld\n", batchSize);
@@ -235,7 +235,7 @@ int main(int argc, char **argv) {
 
     const auto t1 = std::chrono::high_resolution_clock::now();
 
-    for (long long offset = 0; offset < totalSeeds; offset += batchSize) {
+    for (int64_t offset = 0; offset < totalSeeds; offset += batchSize) {
         CHECK_CUDA(cudaMemset(dFoundCount, 0, sizeof(int32_t)));
 
         // Launch Kernel
@@ -274,5 +274,6 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
 
 
