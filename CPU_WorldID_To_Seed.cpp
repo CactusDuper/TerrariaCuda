@@ -76,7 +76,7 @@ int32_t GetWorldIDFull(int32_t seed) {
         return SubAndNorm(seedArray[16], seedArray[37]);
     } 
     else { // 1 / 800
-        uint32_t inext = 3; 
+        uint32_t inext = 2; 
         while (true) {
             inext++;
             const uint32_t inextp = inext + 21;             
@@ -144,3 +144,4 @@ int main() {
     std::cout << "Time taken: " << delt.count() << "ns\n";
     return 0;
 }
+
