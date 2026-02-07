@@ -2,6 +2,7 @@
 # Do not reorder file, only change values
 
 # General world parameters
+maxSeeds        10000   # Total amount of seeds to save (will exit once this amount is found)
 worldSize       0       # 0: Small,     1: Medium,       2: Large
 dungeonSide     -1      # 0: Left,      1: Right
 evil            -1      # 0: Crimson,   1: Corruption

@@ -61,6 +61,7 @@ struct SearchConfig {
     int mushroomBG = -1;
     int underworldBG = -1;
 
+    int maxSeeds = 10000;
     int worldSize = 0;
     int dungeonSide = -1;
     int oreTier1 = -1;
@@ -422,6 +423,7 @@ void LoadConfig(const std::string& filename, SearchConfig& cfg) {
 
     std::string line;
     std::map<std::string, int*> intMap;
+    intMap["maxSeeds"] = &cfg.maxSeeds;
     intMap["worldSize"] = &cfg.worldSize;
     intMap["dungeonSide"] = &cfg.dungeonSide;
     intMap["evil"] = &cfg.evil;
@@ -497,6 +499,8 @@ int main(int argc, char **argv) {
     int32_t* hFoundSeeds = new int32_t[MAX_HITS_PER_BATCH];
     int32_t hFoundCount = 0;
     
+    int64_t totalSaved = 0;
+
     std::ofstream outfile("found_seeds.txt", std::ios_base::app);
     const auto tStart = std::chrono::high_resolution_clock::now();
 
@@ -517,8 +521,13 @@ int main(int argc, char **argv) {
             CHECK_CUDA(cudaMemcpy(hFoundSeeds, dFoundSeeds, copyCount * sizeof(int32_t), cudaMemcpyDeviceToHost));
 
             for (int i = 0; i < copyCount; i++) {
+                if(totalSaved >= hostConfig.maxSeeds){
+                    goto endSearch;
+                }
+
                 if (outfile.is_open()) {
                     outfile << hFoundSeeds[i] << "\n";
+                    totalSaved++;
                 }
             }
             
@@ -533,8 +542,9 @@ int main(int argc, char **argv) {
             fflush(stdout);
         }
     }
-    CHECK_CUDA(cudaDeviceSynchronize());
 
+endSearch:
+    CHECK_CUDA(cudaDeviceSynchronize());
     const auto tEnd = std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> duration = tEnd - tStart;
     
