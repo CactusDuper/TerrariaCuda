@@ -1,0 +1,48 @@
+# Set any value to -1 to ignore it (allow any)
+# Do not reorder file, only change values
+
+# General world parameters
+worldSize       0       # 0: Small,     1: Medium,       2: Large
+dungeonSide     -1      # 0: Left,      1: Right
+evil            -1      # 0: Crimson,   1: Corruption
+moonStyle       -1      # 0-8
+oreTier1        -1      # 0: Tin,       1: Copper
+oreTier2        -1      # 0: Lead,      1: Iron
+oreTier3        -1      # 0: Tungsten,  1: Silver
+oreTier4        -1      # 0: Platinum,  1: Gold
+
+# Actual tree styles (0-5). Need to document what IDs they properly map to
+# Small has 2, Medium has 3, Large has 4
+# Any values beyond 2 (Small) or 3 (Medium) will be ignored!
+treeStyle0      -1
+treeStyle1      -1
+treeStyle2      -1
+treeStyle3      -1
+
+# Cave backgrounds (0-7). Need to document what IDs they properly map to
+# Small has 2, Medium has 3, Large has 4
+# Any values beyond 2 (Small) or 3 (Medium) will be ignored!
+caveStyle0      -1
+caveStyle1      -1
+caveStyle2      -1
+caveStyle3      -1
+
+# Forest/Tree backgrounds (0-13, 31, 51, 71, 72, 73). Need to document what IDs they properly map to
+treeBG0         -1
+treeBG1         -1
+treeBG2         -1
+treeBG3         -1
+
+# Biome backgrounds. Need to document what IDs they properly map to
+corruptBG       -1      # 0-4, 51, 52
+jungleBG        -1      # 0-6
+snowBG          -1      # 0-8, 21, 22, 31, 32, 41, 42
+hallowBG        -1      # 0-5
+crimsonBG       -1      # 0-6
+desertBG        -1      # 0-4, 51-53
+oceanBG         -1      # 0-7
+mushroomBG      -1      # 0-4
+underworldBG    -1      # 0-2
+iceBackStyle    -1      # 0-3
+hellBackStyle   -1      # 0-2
+jungleBackStyle -1      # 0, 1
