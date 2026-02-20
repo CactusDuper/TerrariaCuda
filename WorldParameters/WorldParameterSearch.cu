@@ -260,16 +260,6 @@ __device__ __forceinline__ bool RandomizeCaveBackgrounds(int32_t* seedArray, uin
     if (cConfig.hellBackStyle != -1 && hellBackStyle != cConfig.hellBackStyle) { return false; }
     if (cConfig.jungleBackStyle != -1 && jungleBackStyle != cConfig.jungleBackStyle) { return false; }
 
-    // TODO: Can we optimize this???
-    int matchCounter = 0;
-    for(int i = 0; i < 4; i++) {
-        for(int j = 0; j < 4; j++) {
-            if (caveStyle[i] == cConfig.caveStyle[j]) {
-                matchCounter++;
-            }
-        }
-    }
-
     constexpr int count = (SIZE == EWorldSize::Small) ? 2 : ((SIZE == EWorldSize::Medium) ? 3 : 4);
     return CheckSetInclusion(caveStyle, count, cConfig.caveStyle, count);
 }
